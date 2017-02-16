@@ -12,6 +12,10 @@
     <properties>
         <jdk.version>1.8</jdk.version>
         <spring.version>3.0.5.RELEASE</spring.version>
+        <jpa.version>1.0</jpa.version>
+        <hibernate.version>5.2.6.Final</hibernate.version>
+        <mysql-connector.version>6.0.5</mysql-connector.version>
+        <jstl.version>1.2</jstl.version>
     </properties>
 
     <build>
@@ -70,26 +74,32 @@
             <version>${spring.version}</version>
         </dependency>
 
-
         <!--JPA-->
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
-            <version>1.0</version>
+            <version>${jpa.version}</version>
         </dependency>
 
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.2.6.Final</version>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <!--MySQL Connector/J-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector.version}</version>
         </dependency>
 
         <!-- JSTL -->
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <version>${jstl.version}</version>
         </dependency>
     </dependencies>
 </project>
