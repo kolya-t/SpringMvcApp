@@ -61,5 +61,12 @@
             <artifactId>persistence-api</artifactId>
             <version>1.0</version>
         </dependency>
+
+        <!-- JSTL -->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
     </dependencies>
 </project>
