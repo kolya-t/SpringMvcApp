@@ -1,5 +1,6 @@
 package ru.eninja.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.eninja.domain.User;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 /**
  * Interface of abstract user service. Defines operations on users
  */
+@Transactional
 public interface UserService {
 
     /**

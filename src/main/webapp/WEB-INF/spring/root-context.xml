@@ -17,4 +17,6 @@
     <!--Используемая технология досутпа к базе данных-->
     <import resource="data/hibernate.xml"/>
     <!--<import resource="data/jpa.xml"/>-->
+
+
 </beans>

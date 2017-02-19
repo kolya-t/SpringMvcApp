@@ -7,7 +7,6 @@ import ru.eninja.domain.User;
 
 
 @Repository
-//@Transactional
 public class JpaUserDao extends AbstractJpaDao<Long, User> implements UserDao {
 
     @Override

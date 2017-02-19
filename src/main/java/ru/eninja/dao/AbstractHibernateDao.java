@@ -27,14 +27,13 @@ public abstract class AbstractHibernateDao<K extends Serializable, E extends Abs
     /**
      * Factory, producing Hibernate sessions
      */
-    private final SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @Autowired
-    public AbstractHibernateDao(SessionFactory sessionFactory) {
+    public AbstractHibernateDao() {
         ParameterizedType genericSuperClass = (ParameterizedType) getClass().getGenericSuperclass();
         this.entityClass = (Class<E>) genericSuperClass.getActualTypeArguments()[1];
-
-        this.sessionFactory = sessionFactory;
     }
 
     /**
