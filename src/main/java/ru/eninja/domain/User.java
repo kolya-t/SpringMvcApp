@@ -1,35 +1,61 @@
 package ru.eninja.domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 
 /**
- * User Transfer Object
+ * User Entity
  */
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends AbstractEntity<Long> {
 
-    @Id
-    @Column(name = "id", nullable = false, unique = true)
-    @GeneratedValue
-    private Long id;
-
+    /**
+     * Login column
+     */
     @Column(name = "login", nullable = false, unique = true)
     private String login;
 
+    /**
+     * Password column
+     */
     @Column(name = "password", nullable = false)
     private String password;
 
+    /**
+     * Email column
+     */
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    /**
+     * Role column (user, admin..)
+     */
     @Column(name = "role", nullable = false)
     private String role;
 
+    /**
+     * JPA requires to define default-constructor
+     */
     public User() {
     }
 
+    /**
+     * Full parametrized constructor
+     */
+    public User(Long id, String login, String password, String email, String role) {
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        setId(id);
+    }
+
+    /**
+     * Almost full parametrized constructor (without id)
+     */
     public User(String login, String password, String email, String role) {
         this.login = login;
         this.password = password;
@@ -37,11 +63,35 @@ public class User {
         this.role = role;
     }
 
-    public User(Long id, String login, String password, String email, String role) {
-        this.id = id;
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
         this.role = role;
     }
 
