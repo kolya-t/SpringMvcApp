@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
     <!--Root Context. Ресурсы, доступные всему приложению, всем сервлетам-->
 
     <!--Использование конфигурационных аннотаций-->
@@ -11,5 +11,10 @@
     <!--Service Impl-->
     <context:component-scan base-package="ru.eninja.service"/>
 
-    <import resource="data.xml"/>
+    <!--Поддержка транзакций-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--Используемая технология досутпа к базе данных-->
+    <import resource="data/hibernate.xml"/>
+    <!--<import resource="data/jpa.xml"/>-->
 </beans>
