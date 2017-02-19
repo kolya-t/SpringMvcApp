@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
     private final UserDao userDao;
 
     @Autowired
-    public UserServiceImpl(@Qualifier("hibernateUserDao") UserDao userDao) {
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
 
