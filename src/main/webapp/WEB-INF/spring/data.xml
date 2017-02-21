@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://www.springframework.org/schema/beans"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/data/jpa
+       http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-    <import resource="_data.xml"/>
+    <!--Бин DataSource-->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/users"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
 
-    <!--DAO Impl-->
-    <bean class="ru.eninja.dao.user.impl.JpaUserDao"/>
+    <!--Преобразование исключений в DAO в неконтролируемые (необязательно)-->
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
     <!--Для связи EntityManager у DAO через аннотацию @PersistenceContext с entityManagerFactory-->
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
@@ -42,4 +51,6 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
+
+    <jpa:repositories base-package="ru.eninja.dao"/>
 </beans>
