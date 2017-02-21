@@ -18,7 +18,15 @@ public interface UserService {
      * @param user user to save
      * @return id of saved user
      */
-    Long addUser(User user);
+    User addUser(User user);
+
+    /**
+     * Saves collection of Users to table
+     *
+     * @param users user collection
+     * @return saved collection
+     */
+    Iterable<? extends User> addUsers(Iterable<? extends User> users);
 
     /**
      * Finds and returns user by id
@@ -43,11 +51,25 @@ public interface UserService {
     void updateUser(User user);
 
     /**
-     * Deltes user by id
+     * Deletes user by id
      *
      * @param id user id
      */
     void deleteUser(Long id);
+
+    /**
+     * Deleted user
+     *
+     * @param user user to delete
+     */
+    void deleteUser(User user);
+
+    /**
+     * Deletes a collection of users
+     *
+     * @param users user collection to delete
+     */
+    void deleteUsers(Iterable<? extends User> users);
 
     /**
      * Return user by login
@@ -64,4 +86,13 @@ public interface UserService {
      * @return user by email
      */
     User getUserByEmail(String email);
+
+    /**
+     * Returns user by login and password
+     *
+     * @param login    user login
+     * @param password user password
+     * @return user by login and password
+     */
+    User getUserByLoginAndPassword(String login, String password);
 }

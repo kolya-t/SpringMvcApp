@@ -14,9 +14,6 @@
     <!--Поддержка транзакций-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <!--Используемая технология досутпа к базе данных-->
-    <import resource="data/hibernate.xml"/>
-    <!--<import resource="data/jpa.xml"/>-->
-
-
+    <!--Доступ к базе данных-->
+    <import resource="data.xml"/>
 </beans>
