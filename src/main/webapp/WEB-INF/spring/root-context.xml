@@ -15,5 +15,5 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <!--Доступ к базе данных-->
-    <import resource="data.xml"/>
+    <import resource="persistence.xml"/>
 </beans>

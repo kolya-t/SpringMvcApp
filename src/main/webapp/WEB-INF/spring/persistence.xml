@@ -7,18 +7,13 @@
        http://www.springframework.org/schema/data/jpa
        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-    <!--Бин DataSource-->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/users"/>
-        <property name="username" value="root"/>
-        <property name="password" value="root"/>
-    </bean>
+    <!--DataSource Bean-->
+    <import resource="dataSource-context.xml"/>
 
     <!--Преобразование исключений в DAO в неконтролируемые (необязательно)-->
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
-    <!--Для связи EntityManager у DAO через аннотацию @PersistenceContext с entityManagerFactory-->
+    <!--Для связи EntityManager с DAO через аннотацию @PersistenceContext с entityManagerFactory-->
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 
     <!--jpaVendorAdapter Bean-->
