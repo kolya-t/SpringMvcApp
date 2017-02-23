@@ -1,7 +1,9 @@
 package ru.eninja.service.impl;
 
+import com.sun.istack.internal.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.eninja.dao.UserDao;
 import ru.eninja.domain.User;
 import ru.eninja.service.UserService;
@@ -10,6 +12,7 @@ import java.util.List;
 
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
@@ -62,6 +65,16 @@ public class UserServiceImpl implements UserService {
         return (List<User>) userDao.findAll();
     }
 
+    @Override
+    public boolean exists(@NotNull Long id) {
+        return userDao.exists(id);
+    }
+
+    @Override
+    public long count() {
+        return userDao.count();
+    }
+
     /**
      * Updates user in table
      *
@@ -100,6 +113,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUsers(Iterable<? extends User> users) {
         userDao.delete(users);
+    }
+
+    @Override
+    public void deleteAll() {
+        userDao.deleteAll();
     }
 
     /**

@@ -1,6 +1,6 @@
 package ru.eninja.service;
 
-import org.springframework.transaction.annotation.Transactional;
+import com.sun.istack.internal.NotNull;
 import ru.eninja.domain.User;
 
 import java.util.List;
@@ -9,7 +9,6 @@ import java.util.List;
 /**
  * Interface of abstract user service. Defines operations on users
  */
-@Transactional
 public interface UserService {
 
     /**
@@ -44,6 +43,19 @@ public interface UserService {
     List<User> getUserList();
 
     /**
+     * Returns {@code true} if user exists
+     *
+     * @param id user id
+     * @return {@code true} if user exists and {@code false} otherwise
+     */
+    boolean exists(@NotNull Long id);
+
+    /**
+     * @return users count
+     */
+    long count();
+
+    /**
      * Updates user in table
      *
      * @param user user to update
@@ -70,6 +82,11 @@ public interface UserService {
      * @param users user collection to delete
      */
     void deleteUsers(Iterable<? extends User> users);
+
+    /**
+     * Deletes all users from table
+     */
+    void deleteAll();
 
     /**
      * Return user by login
