@@ -1,8 +1,11 @@
 package ru.eninja.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.hibernate.validator.constraints.Email;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 
 /**
@@ -10,31 +13,45 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "user")
-public class User extends AbstractEntity<Long> {
+public class User implements Serializable {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "id", nullable = false, unique = true)
+    @NotNull
+    private Long id = -1L;
 
     /**
      * Login column
      */
-    @Column(name = "login", nullable = false, unique = true)
+    @Column(name = "login", nullable = false, unique = true, length = 20)
+    @NotNull
+    @Size(min = 3, max = 20)
     private String login;
 
     /**
      * Password column
      */
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, length = 20)
+    @NotNull
+    @Size(min = 6, max = 20)
     private String password;
 
     /**
      * Email column
      */
     @Column(name = "email", nullable = false, unique = true)
+    @NotNull
+    @Email
     private String email;
 
     /**
      * Role column (user, admin..)
      */
-    @Column(name = "role", nullable = false)
-    private String role;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Role role;
 
     /**
      * JPA requires to define default-constructor
@@ -45,54 +62,42 @@ public class User extends AbstractEntity<Long> {
     /**
      * Full parametrized constructor
      */
-    public User(Long id, String login, String password, String email, String role) {
+    public User(Long id, String login, String password, String email, Role role) {
+        this.id = id;
         this.login = login;
         this.password = password;
         this.email = email;
         this.role = role;
-        setId(id);
     }
 
     /**
      * Almost full parametrized constructor (without id)
      */
-    public User(String login, String password, String email, String role) {
+    public User(String login, String password, String email, Role role) {
         this.login = login;
         this.password = password;
         this.email = email;
         this.role = role;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getLogin() {
         return login;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getRole() {
+    public Role getRole() {
         return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     @Override
@@ -126,7 +131,7 @@ public class User extends AbstractEntity<Long> {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", role='" + role + '\'' +
+                ", role=" + role +
                 '}';
     }
 }
