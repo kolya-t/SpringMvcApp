@@ -19,7 +19,7 @@ public class User implements Serializable {
     @GeneratedValue
     @Column(name = "id", nullable = false, unique = true)
     @NotNull
-    private Long id = -1L;
+    private Long id;
 
     /**
      * Login column
@@ -112,16 +112,6 @@ public class User implements Serializable {
         if (!password.equals(user.password)) return false;
         if (!email.equals(user.email)) return false;
         return role.equals(user.role);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + login.hashCode();
-        result = 31 * result + password.hashCode();
-        result = 31 * result + email.hashCode();
-        result = 31 * result + role.hashCode();
-        return result;
     }
 
     @Override

@@ -12,7 +12,7 @@ public class Role implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
-    private Integer id = -1;
+    private Integer id;
 
     @Column(name = "name", nullable = false, unique = true)
     @NotNull
@@ -55,13 +55,6 @@ public class Role implements Serializable {
 
         if (!id.equals(role.id)) return false;
         return name.equals(role.name);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + name.hashCode();
-        return result;
     }
 
     @Override
