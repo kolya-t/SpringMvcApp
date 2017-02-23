@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title th:text="#{home.title}">Welcome</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../../resources/css/bootstrap-theme.min.css"
+          th:href="@{/resources/css/bootstrap-theme.min.css}"/>
+    <link rel="stylesheet" href="../../resources/css/cover.css" th:href="@{/resources/css/cover.css}"/>
+</head>
+<body>
+<!--<jsp:include page="/views/_header.jsp"/>-->
+<div class="site-wrapper">
+    <div class="site-wrapper-inner">
+        <div class="cover-container">
+            <div class="mastfoot">
+                <div class="inner">
+                    <p>Site by <a href="https://github.com/kolya-t">kolya-t</a> and <a href="http://getbootstrap.com">Bootstrap</a>
+                    </p>
+                </div>
+            </div>
+            <!--/*@thymesVar id="loggedUser" type="ru.eninja.domain.User"*/-->
+            <div class="inner cover" th:if="${loggedUser == null}">
+                <h1 class="cover-heading" th:text="#{home.hello(#{home.anonymous})}">
+                    Здравствуйте, аноним!
+                </h1>
+
+                <p class="lead" th:text="#{home.please_sign_up}">
+                    Войдите или зарегистрируйтесь, чтобы полноценно пользоваться сервисом
+                </p>
+                <p class="lead">
+                    <a th:href="@{/login}" th:text="#{home.login_btn}" role="button" class="btn btn-success btn-lg"
+                       th:autofocus="autofocus">Вход</a>
+                    <a th:href="@{/signup}" th:text="#{home.signup_btn}" role="button"
+                       class="btn btn-primary btn-lg">Регистрация</a>
+                </p>
+            </div>
+            <div class="inner cover" th:unless="${loggedUser == null}">
+                <h1 class="cover-heading" th:text="#{home.hello(${loggedUser.login})}">
+                </h1>
+            </div>
+        </div>
+        <!--<jsp:include page="views/alerts/success.jsp"/>-->
+        <!--<jsp:include page="views/alerts/error.jsp"/>-->
+    </div>
+</div>
+<script src="../../resources/js/jquery-3.1.1.min.js" th:src="@{/resources/js/jquery-3.1.1.min.js}"></script>
+<script src="../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</body>
+</html>
