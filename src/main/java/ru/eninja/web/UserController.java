@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.eninja.domain.Role;
 import ru.eninja.domain.User;
 import ru.eninja.service.RoleService;
 import ru.eninja.service.UserService;
@@ -49,8 +51,9 @@ public class UserController {
      * @param user user to add
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(@Valid User user, BindingResult bindingResult) {
+    public String addUser(@Valid User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute(roleService.getRoleList());
             return "users/add";
         }
         userService.addUser(user);
@@ -63,6 +66,7 @@ public class UserController {
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editUserPage(@RequestParam("id") long id, Model model) {
         model.addAttribute(userService.getUserById(id));
+        model.addAttribute(roleService.getRoleList());
         return "users/edit";
     }
 
@@ -72,8 +76,9 @@ public class UserController {
      * @param user user to edit
      */
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String editUser(@Valid User user, BindingResult bindingResult) {
+    public String editUser(@Valid User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute(roleService.getRoleList());
             return "users/add";
         }
         userService.updateUser(user);
