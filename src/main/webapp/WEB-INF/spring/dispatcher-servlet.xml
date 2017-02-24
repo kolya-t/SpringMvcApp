@@ -17,7 +17,4 @@
 
     <context:component-scan base-package="ru.eninja.web"/>
 
-    <import resource="template.xml"/>
-
-    <import resource="locale.xml"/>
 </beans>
