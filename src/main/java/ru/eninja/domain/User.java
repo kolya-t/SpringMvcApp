@@ -1,6 +1,7 @@
 package ru.eninja.domain;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,14 +19,13 @@ public class User implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false, unique = true)
-    @NotNull
     private Long id;
 
     /**
      * Login column
      */
     @Column(name = "login", nullable = false, unique = true, length = 20)
-    @NotNull
+    @NotEmpty
     @Size(min = 3, max = 20)
     private String login;
 
@@ -33,7 +33,7 @@ public class User implements Serializable {
      * Password column
      */
     @Column(name = "password", nullable = false, length = 20)
-    @NotNull
+    @NotEmpty
     @Size(min = 6, max = 20)
     private String password;
 
@@ -41,7 +41,7 @@ public class User implements Serializable {
      * Email column
      */
     @Column(name = "email", nullable = false, unique = true)
-    @NotNull
+    @NotEmpty
     @Email
     private String email;
 
@@ -100,6 +100,26 @@ public class User implements Serializable {
         return role;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,11 +127,21 @@ public class User implements Serializable {
 
         User user = (User) o;
 
-        if (!id.equals(user.id)) return false;
-        if (!login.equals(user.login)) return false;
-        if (!password.equals(user.password)) return false;
-        if (!email.equals(user.email)) return false;
-        return role.equals(user.role);
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        if (login != null ? !login.equals(user.login) : user.login != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        return role != null ? role.equals(user.role) : user.role == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (login != null ? login.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        return result;
     }
 
     @Override
