@@ -1,7 +1,8 @@
 package ru.eninja.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
@@ -15,7 +16,7 @@ public class Role implements Serializable {
     private Integer id;
 
     @Column(name = "name", nullable = false, unique = true)
-    @NotNull
+    @NotEmpty
     private String name;
 
     public Role() {
@@ -53,8 +54,15 @@ public class Role implements Serializable {
 
         Role role = (Role) o;
 
-        if (!id.equals(role.id)) return false;
-        return name.equals(role.name);
+        if (id != null ? !id.equals(role.id) : role.id != null) return false;
+        return name != null ? name.equals(role.name) : role.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
     }
 
     @Override
