@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title th:text="#{list.title}">База данных пользователей</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+</head>
+<body>
+<!--<jsp:include page="../_header.jsp"/>-->
+<div class="container-fluid" style="margin-top:70px">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2" id="list-container">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                <input type="text" id="search-field" class="form-control" th:placeholder="#{list.search}"
+                       placeholder="Поиск..."/>
+            </div>
+            <div class="table-responsive" id="table-id">
+                <table class="table table-condensed table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="sort text-right" data-sort="id" th:text="#{list.id}">id</th>
+                        <th class="sort text-center" data-sort="login" th:text="#{list.login}">login</th>
+                        <th class="sort text-center" data-sort="password" th:text="#{list.password}">password</th>
+                        <th class="sort text-center" data-sort="email" th:text="#{list.email}">e-mail</th>
+                        <th class="sort text-center" data-sort="role" th:text="#{list.role}">role</th>
+                        <th class="text-center" th:text="#{list.action}">Действие</th>
+                    </tr>
+                    </thead>
+                    <!--/*@thymesVar id="userList" type="java.util.List<ru.eninja.domain.User>"*/-->
+                    <tbody class="list" th:if="${userList != null}">
+                    <tr th:each="user : ${userList}">
+                        <td class="id text-right" th:text="${user.id}">101</td>
+                        <td class="login" th:text="${user.login}">admin</td>
+                        <td class="password" th:text="${user.password}">qwerty</td>
+                        <td class="email" th:text="${user.email}">admin@gmail.com</td>
+                        <td class="role" th:text="${user.role.name}">admin</td>
+                        <td class="action text-center">
+                            <a href="edit.html" th:href="@{/users/edit(id=${user.id})}" role="button"
+                               class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span> <span
+                                    th:text="#{list.edit}">Изменить</span></a>
+                            <a href="#" th:href="@{/users/delete(id=${user.id})}" role="button"
+                               class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> <span
+                                    th:text="#{list.delete}">Удалить</span></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="7">
+                            <a href="add.html" th:href="@{/users/add}"><i class="glyphicon glyphicon-plus"></i> <span
+                                    th:text="#{list.add}">Добавить нового пользователя</span></a>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="text-center">
+                <ul class="pagination"></ul>
+            </div>
+            <!--<jsp:include page="../alerts/success.jsp"/>-->
+            <!--<jsp:include page="../alerts/error.jsp"/>-->
+        </div>
+    </div>
+</div>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+<script src="../../../resources/js/userList.js" th:src="@{/resources/js/userList.js}"></script>
+</body>
+</html>
