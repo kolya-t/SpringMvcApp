@@ -13,7 +13,6 @@
         <jdk.version>1.8</jdk.version>
         <spring.version>3.1.1.RELEASE</spring.version>
         <spring-data.version>1.1.0.RELEASE</spring-data.version>
-        <spring-webflow.version>2.4.4.RELEASE</spring-webflow.version>
         <jpa.version>1.0</jpa.version>
         <hibernate.version>3.5.6-Final</hibernate.version>
         <ehcache.version>3.2.0</ehcache.version>
@@ -123,32 +122,28 @@
             <version>${spring-data.version}</version>
         </dependency>
 
-        <!--Spring Web Flow-->
+        <!--Spring Security-->
         <dependency>
-            <groupId>org.springframework.webflow</groupId>
-            <artifactId>spring-binding</artifactId>
-            <version>${spring-webflow.version}</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.webflow</groupId>
-            <artifactId>spring-faces</artifactId>
-            <version>${spring-webflow.version}</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.webflow</groupId>
-            <artifactId>spring-js</artifactId>
-            <version>${spring-webflow.version}</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.webflow</groupId>
-            <artifactId>spring-js-resources</artifactId>
-            <version>${spring-webflow.version}</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${spring.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.webflow</groupId>
-            <artifactId>spring-webflow</artifactId>
-            <version>${spring-webflow.version}</version>
-        </dependency>
+
 
 
         <!--JPA-->
