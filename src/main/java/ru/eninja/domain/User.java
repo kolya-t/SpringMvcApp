@@ -4,9 +4,10 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Set;
 
 
 /**
@@ -45,13 +46,16 @@ public class User implements Serializable {
     @Email
     private String email;
 
+    @Column(name = "enabled", nullable = false)
+    private Boolean enabled;
+
     /**
      * Role column (user, admin..)
      */
-    @NotNull
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Role role;
+//    @NotNull
+    @ManyToMany
+    @JoinColumn(name = "id")
+    private Set<Role> role;
 
     /**
      * JPA requires to define default-constructor
@@ -62,7 +66,7 @@ public class User implements Serializable {
     /**
      * Full parametrized constructor
      */
-    public User(Long id, String login, String password, String email, Role role) {
+    public User(Long id, String login, String password, String email, Set<Role> role) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -73,7 +77,7 @@ public class User implements Serializable {
     /**
      * Almost full parametrized constructor (without id)
      */
-    public User(String login, String password, String email, Role role) {
+    public User(String login, String password, String email, Set<Role> role) {
         this.login = login;
         this.password = password;
         this.email = email;
@@ -84,39 +88,47 @@ public class User implements Serializable {
         return id;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getLogin() {
+        return login;
     }
 
     public void setLogin(String login) {
         this.login = login;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setRole(Role role) {
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Collection<Role> getRole() {
+        return role;
+    }
+
+    public void setRole(Set<Role> role) {
         this.role = role;
     }
 
@@ -131,6 +143,7 @@ public class User implements Serializable {
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (enabled != null ? !enabled.equals(user.enabled) : user.enabled != null) return false;
         return role != null ? role.equals(user.role) : user.role == null;
     }
 
@@ -140,6 +153,7 @@ public class User implements Serializable {
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (enabled != null ? enabled.hashCode() : 0);
         result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
     }
@@ -151,6 +165,7 @@ public class User implements Serializable {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", enabled=" + enabled +
                 ", role=" + role +
                 '}';
     }
