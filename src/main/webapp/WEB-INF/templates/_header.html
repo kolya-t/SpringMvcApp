@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Document</title>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top text-left" style="text-shadow: none;" th:fragment="navbar">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="home.html" th:href="@{/}">
+                    <span class="glyphicon glyphicon-home"></span> Home
+                </a></li>
+                <li><a href="users/list.html" th:href="@{/users}">
+                    <span class="glyphicon glyphicon-user"></span> Admin panel
+                </a></li>
+            </ul>
+
+            <div sec:authorize="isAnonymous()">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="signup.html" th:href="@{/signup}">
+                        <span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                    </li>
+                    <li><a href="login.html" th:href="@{/login}">
+                        <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                </ul>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a th:text="#{header.login_and_role(${#authentication.name}, ${#authentication.authorities[0]})}">
+                            user(role)
+                        </a>
+                    </li>
+                    <li><a href="#" th:href="@{/logout}">
+                        <span class="glyphicon glyphicon-log-out"></span> Log out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
