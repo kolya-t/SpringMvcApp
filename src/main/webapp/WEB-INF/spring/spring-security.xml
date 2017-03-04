@@ -13,11 +13,10 @@
                     username-parameter="login"
                     password-parameter="password" />
         <logout logout-url="/logout" logout-success-url="/login?logout"/>
+        <remember-me user-service-ref="userDetailsService"/>
     </http>
 
     <authentication-manager>
         <authentication-provider user-service-ref="userDetailsService" />
     </authentication-manager>
-
-    <beans:bean id="userDetailsService" class="ru.eninja.service.impl.CustomUserDetailsService" />
 </beans:beans>
