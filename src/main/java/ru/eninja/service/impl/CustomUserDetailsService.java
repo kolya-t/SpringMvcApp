@@ -10,7 +10,7 @@ import ru.eninja.domain.User;
 import ru.eninja.service.UserService;
 
 
-@Service
+@Service("userDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
@@ -29,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 user.getPassword(),
                 user.getEnabled(),
                 true, true, true,
-                user.getRole()
+                user.getRoles()
         );
     }
 
