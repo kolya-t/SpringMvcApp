@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<div th:fragment="success" th:if="${successMessage != null}">
+    <div class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <span th:text="${successMessage}">Успешно!</span>
+    </div>
+</div>
+<div th:fragment="success" th:if="${errorMessage != null}">
+    <div class="alert alert-danger alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <span th:text="${errorMessage}">Ошибка!</span>
+    </div>
+</div>
+</body>
+</html>
