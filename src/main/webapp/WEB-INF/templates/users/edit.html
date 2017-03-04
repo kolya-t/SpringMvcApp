@@ -10,6 +10,8 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css"/>
 </head>
 <body>
 <div th:replace="_header :: navbar"></div>
@@ -23,32 +25,33 @@
                 <div class="panel-body">
                     <form role="form" th:object="${user}" action="edit.html" th:action="@{/users/edit}" method="post">
                         <div class="form-group">
-                            <input th:field="*{id}" type="number" placeholder="Id" th:placeholder="#{edit.id}"
+                            <input th:field="*{id}" type="number" placeholder="Id" th:placeholder="#{edit.id_placeholder}"
                                    class="form-control" readonly="readonly"/>
                         </div>
                         <div class="form-group">
-                            <input th:field="*{login}" type="text" placeholder="Login" th:placeholder="#{edit.login}"
+                            <input th:field="*{login}" type="text" placeholder="Login" th:placeholder="#{edit.login_placeholder}"
                                    class="form-control" required="required" autofocus="autofocus"/>
                             <span th:errors="*{login}" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <input th:field="*{password}" type="text" placeholder="Password"
-                                   th:placeholder="#{edit.password}" class="form-control" required="required"/>
+                                   th:placeholder="#{edit.password_placeholder}" class="form-control" required="required"/>
                             <span th:errors="*{password}" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <input th:field="*{email}" type="email" placeholder="Email" th:placeholder="#{edit.email}"
+                            <input th:field="*{email}" type="email" placeholder="Email" th:placeholder="#{edit.email_placeholder}"
                                    class="form-control" required="required"/>
                             <span th:errors="*{email}" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <select th:field="*{role.id}" class="form-control">
-                                <option th:each="role: ${roleList}"
-                                        th:value="${role.id}"
-                                        th:text="${role.name}">User
+                            <select id="role" th:field="*{roles}" class="selectpicker form-control" multiple="multiple">
+                                <option th:each="r: ${roleList}"
+                                        th:value="${{r}}"
+                                        th:text="${r.authority}">
+                                    User
                                 </option>
                             </select>
-                            <span th:errors="*{role}" class="text-danger"></span>
+                            <span th:errors="*{roles}" class="text-danger"></span>
 
                         </div>
                         <input type="submit" class="btn btn-lg btn-primary btn-block" value="Создать"
@@ -56,12 +59,13 @@
                     </form>
                 </div>
             </div>
-            <!--<jsp:include page="../alerts/success.jsp"/>-->
-            <!--<jsp:include page="../alerts/error.jsp"/>-->
+            <div th:replace="_alerts :: success"></div>
+            <div th:replace="_alerts :: error"></div>
         </div>
     </div>
 </div>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
 </body>
 </html>
