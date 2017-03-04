@@ -33,7 +33,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role getRoleById(Long id) {
+    public Role getRoleById(Integer id) {
         return roleDao.findOne(id);
     }
 
@@ -43,7 +43,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public boolean exists(@NotNull Long id) {
+    public boolean exists(@NotNull Integer id) {
         return roleDao.exists(id);
     }
 
@@ -58,7 +58,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void deleteRole(Long id) {
+    public void deleteRole(Integer id) {
         roleDao.delete(id);
     }
 

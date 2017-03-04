@@ -33,7 +33,7 @@ public interface RoleService {
      * @param id role id
      * @return role by id
      */
-    Role getRoleById(Long id);
+    Role getRoleById(Integer id);
 
     /**
      * Finds and returns role list
@@ -48,7 +48,7 @@ public interface RoleService {
      * @param id role id
      * @return {@code true} if role exists and {@code false} otherwise
      */
-    boolean exists(@NotNull Long id);
+    boolean exists(@NotNull Integer id);
 
     /**
      * @return roles count
@@ -67,7 +67,7 @@ public interface RoleService {
      *
      * @param id role id
      */
-    void deleteRole(Long id);
+    void deleteRole(Integer id);
 
     /**
      * Deleted role
