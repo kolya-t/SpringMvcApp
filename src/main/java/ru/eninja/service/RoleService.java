@@ -35,6 +35,8 @@ public interface RoleService {
      */
     Role getRoleById(Integer id);
 
+    Role getRoleByAuthority(String authority);
+
     /**
      * Finds and returns role list
      *

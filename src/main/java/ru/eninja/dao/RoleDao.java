@@ -5,4 +5,5 @@ import ru.eninja.domain.Role;
 
 
 public interface RoleDao extends CrudRepository<Role, Integer> {
+    Role findByAuthority(String authority);
 }
