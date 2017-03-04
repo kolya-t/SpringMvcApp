@@ -9,6 +9,7 @@ Spring (MVC + Data JPA + Security) + Thymeleaf
 - Hibernate 3.5.6
 - Bean Validation API 1.1
 - Thymealeaf 2.1
+- Bootstrap 3
 
 ## База данных
 ### Структура
