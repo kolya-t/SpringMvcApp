@@ -30,7 +30,7 @@ public class LoginController {
     private RoleService roleService;
 
     @RequestMapping(value = "/login", method = GET)
-    public String showLogin(
+    public String loginPage(
             @RequestParam(value = "error", required = false) String error,
             @RequestParam(value = "logout", required = false) String logout,
             Model model) {
@@ -46,7 +46,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "signup", method = GET)
-    public String showSignup(Model model) {
+    public String signupPage(Model model) {
         model.addAttribute(new User());
         return "signup";
     }
