@@ -29,5 +29,6 @@ buildNumber.properties
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar
 .idea/
-SpringWebApp.iml
+*.md
+*.iml
 *.log
