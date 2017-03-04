@@ -6,7 +6,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Set;
 
 
@@ -47,15 +46,16 @@ public class User implements Serializable {
     private String email;
 
     @Column(name = "enabled", nullable = false)
-    private Boolean enabled;
+    private Boolean enabled = true;
 
     /**
      * Role column (user, admin..)
      */
-//    @NotNull
-    @ManyToMany
-    @JoinColumn(name = "id")
-    private Set<Role> role;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false))
+    private Set<Role> roles;
 
     /**
      * JPA requires to define default-constructor
@@ -66,22 +66,22 @@ public class User implements Serializable {
     /**
      * Full parametrized constructor
      */
-    public User(Long id, String login, String password, String email, Set<Role> role) {
+    public User(Long id, String login, String password, String email, Set<Role> roles) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.email = email;
-        this.role = role;
+        this.roles = roles;
     }
 
     /**
      * Almost full parametrized constructor (without id)
      */
-    public User(String login, String password, String email, Set<Role> role) {
+    public User(String login, String password, String email, Set<Role> roles) {
         this.login = login;
         this.password = password;
         this.email = email;
-        this.role = role;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -124,12 +124,12 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
-    public Collection<Role> getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Set<Role> role) {
-        this.role = role;
+    public void setRoles(Set<Role> role) {
+        this.roles = role;
     }
 
     @Override
@@ -144,7 +144,7 @@ public class User implements Serializable {
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (enabled != null ? !enabled.equals(user.enabled) : user.enabled != null) return false;
-        return role != null ? role.equals(user.role) : user.role == null;
+        return roles != null ? roles.equals(user.roles) : user.roles == null;
     }
 
     @Override
@@ -154,7 +154,7 @@ public class User implements Serializable {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (enabled != null ? enabled.hashCode() : 0);
-        result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (roles != null ? roles.hashCode() : 0);
         return result;
     }
 
@@ -166,7 +166,7 @@ public class User implements Serializable {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", enabled=" + enabled +
-                ", role=" + role +
+                ", roles=" + roles +
                 '}';
     }
 }
